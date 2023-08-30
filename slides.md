@@ -114,6 +114,42 @@ level: 1
 </v-clicks>
 
 ---
+transition: slide-left
+layout: image-right
+image: ./images/one-does-not-simply.png
+
+---
+
+
+```ts
+type IsDivByThree<T extends unknown[]> = T extends [...infer Start, unknown, unknown, unknown]
+? Start extends []
+  ? 'Fizz'
+  : IsDivByThree<Start>
+: false
+
+type IsDivByFive<T extends unknown[]> = T extends [...infer Start, unknown, unknown, unknown, unknown, unknown]
+? Start extends []
+  ? 'Buzz'
+  : IsDivByFive<Start>
+: false
+
+type FizzBuzz<N extends number, Acc extends unknown[] = []> = N extends Acc['length']
+? Acc
+: FizzBuzz<N, [...Acc, 
+    `${
+        ( IsDivByThree<[...Acc, '']> | IsDivByFive<[...Acc, '']> ) extends false 
+          ? [...Acc, '']['length'] extends number ? [...Acc, '']['length'] : never
+          : ''
+      }${
+        IsDivByThree<[...Acc, '']> extends string ? 'Fizz' : ''
+      }${
+        IsDivByFive<[...Acc, '']> extends string ? 'Buzz' : ''
+      }`
+  ]>
+```
+
+---
 transition: slide-up
 layout: image-right
 image: ./images/matt-pocock.jpg
@@ -131,6 +167,10 @@ image: ./images/matt-pocock.jpg
 - Rythme de publication
 
 - Qualité du contenu
+
+- Mediums
+
+- https://www.totaltypescript.com/
 
 </v-clicks>
 
